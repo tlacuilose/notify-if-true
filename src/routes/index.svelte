@@ -1,6 +1,6 @@
 <script lang="ts">
 	import FormDivider from '$lib/FormDivider.svelte';
-import FormTitle from '$lib/FormTitle.svelte';
+	import FormTitle from '$lib/FormTitle.svelte';
 	import FormValidateEndpoint from '$lib/FormValidateEndpoint.svelte';
 	import FormValidateFields from '$lib/FormValidateFields.svelte';
 	import type { TitleData } from '$lib/types';
@@ -31,7 +31,7 @@ import FormTitle from '$lib/FormTitle.svelte';
 	<FormDivider />
 	<div class="form-section">
 		<FormTitle data={fieldsFormTitle} />
-		<FormValidateFields endpoint={endpoint} fields={fields} />
+		<FormValidateFields {endpoint} {fields} />
 	</div>
 {/if}
 
