@@ -1,30 +1,30 @@
 <script lang="ts">
-	import FormTitle from "$lib/FormTitle.svelte";
-	import FormValidateEndpoint from "$lib/FormValidateEndpoint.svelte";
-	import type { TitleData } from "$lib/types";
+	import FormTitle from '$lib/FormTitle.svelte';
+	import FormValidateEndpoint from '$lib/FormValidateEndpoint.svelte';
+	import type { TitleData } from '$lib/types';
 
 	const endpointFormTitle: TitleData = {
-		title: "API Endpoint Validation",
-		description: "First, lets validate the endpoint that calls the API."
-	}
+		title: 'API Endpoint Validation',
+		description: 'First, lets validate the endpoint that calls the API.'
+	};
 
 	let showFields: boolean;
 	let endpoint: string;
 	let fields: string;
-
 </script>
+
 <div>
 	<div class="form-title">
 		<FormTitle data={endpointFormTitle} />
-		<FormValidateEndpoint bind:showFields={showFields} bind:endpoint={endpoint} bind:fields={fields} />
+		<FormValidateEndpoint bind:showFields bind:endpoint bind:fields />
 	</div>
 </div>
 
-{#if showFields }
-<div>
-	{endpoint}<br>
-	{fields}
-</div>
+{#if showFields}
+	<div>
+		{endpoint}<br />
+		{fields}
+	</div>
 {/if}
 
 <div class="hidden sm:block" aria-hidden="true">
