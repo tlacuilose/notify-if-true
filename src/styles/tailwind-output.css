@@ -1010,15 +1010,15 @@ select {
 
 @media (min-width: 768px) {
 
-	.form-title {
+	.form-section {
 		display: grid;
 	}
 
-	.form-title {
+	.form-section {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 
-	.form-title {
+	.form-section {
 		gap: 1.5rem;
 	}
 }

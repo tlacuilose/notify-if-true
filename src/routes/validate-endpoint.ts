@@ -47,6 +47,6 @@ function squashFields(prefix: string, obj: any): string {
 		}
 		return res;
 	} else {
-		return prefix + typeof obj + ',';
+		return prefix + '<' + typeof obj + '>,';
 	}
 }

@@ -1,9 +1,16 @@
 <script lang="ts">
-	import FormTitle from '$lib/FormTitle.svelte';
+	import FormDivider from '$lib/FormDivider.svelte';
+import FormTitle from '$lib/FormTitle.svelte';
 	import FormValidateEndpoint from '$lib/FormValidateEndpoint.svelte';
+	import FormValidateFields from '$lib/FormValidateFields.svelte';
 	import type { TitleData } from '$lib/types';
 
 	const endpointFormTitle: TitleData = {
+		title: 'API Endpoint Validation',
+		description: 'First, lets validate the endpoint that calls the API.'
+	};
+
+	const fieldsFormTitle: TitleData = {
 		title: 'API Endpoint Validation',
 		description: 'First, lets validate the endpoint that calls the API.'
 	};
@@ -14,16 +21,17 @@
 </script>
 
 <div>
-	<div class="form-title">
+	<div class="form-section">
 		<FormTitle data={endpointFormTitle} />
 		<FormValidateEndpoint bind:showFields bind:endpoint bind:fields />
 	</div>
 </div>
 
 {#if showFields}
-	<div>
-		{endpoint}<br />
-		{fields}
+	<FormDivider />
+	<div class="form-section">
+		<FormTitle data={fieldsFormTitle} />
+		<FormValidateFields endpoint={endpoint} fields={fields} />
 	</div>
 {/if}
 
