@@ -5,7 +5,7 @@
 	export let endpoint: string;
 
 	export let showEmail: boolean = false;
-    export let validatedFields: string = '';
+	export let validatedFields: string = '';
 </script>
 
 <div class="form-container">
@@ -25,8 +25,8 @@
 	>
 		<div class="form-box">
 			<div class="form-fields-container">
-                    <input type="text" name="endpoint" id="endpoint" class="hidden" value={endpoint} />
-                    <input type="text" name="fields" id="fields" class="hidden" value={fields} />
+				<input type="text" name="endpoint" id="endpoint" class="hidden" value={endpoint} />
+				<input type="text" name="fields" id="fields" class="hidden" value={fields} />
 				{#each fields.split(',').slice(0, -1) as field}
 					<div class="form-field">
 						<label for="endpoint" class="form-label">{field.split('<')[0]}</label>
@@ -43,7 +43,7 @@
 				{/each}
 			</div>
 			<div class="form-actions-container">
-				<button type="submit" class="form-submit-button"> Validate endpoint </button>
+				<button type="submit" class="form-submit-button"> Validate comparisons</button>
 			</div>
 		</div>
 	</form>

@@ -8,7 +8,7 @@
 			<a href="/" class:underline={$page.path !== '/'}>request-new</a>
 		</div>
 		<div
-			class="p-2 rounded-md text-white bg-gradient-to-r from-yellow-300 to-red-300 hover:from-purple-300 hover:to-green-300"
+			class="p-2 rounded-md text-white bg-gradient-to-r from-yellow-300 to-red-300 hover:from-green-300 hover:to-purple-300"
 		>
 			<a href="/" class="uppercase">notify-if-true</a>
 		</div>
