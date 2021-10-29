@@ -1,5 +1,9 @@
 <script lang="ts">
     import { sendForm } from "$lib/form";
+
+    export let showFields: boolean = false;
+    export let fields: string = '';
+    export let endpoint: string = '';
 </script>
 
 <div class="form-container">
@@ -8,7 +12,14 @@
         method="post"
         use:sendForm = {{
             result: async (res, form) => {
-                console.log(res)
+                let json = await res.json();
+                endpoint = json.endpoint;
+                fields = json.fields;
+                console.log(json.fields);
+
+                if (fields !== '') {
+                    showFields = true;
+                }
             }
         }}
     >

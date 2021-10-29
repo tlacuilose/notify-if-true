@@ -1008,6 +1008,21 @@ select {
 	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+@media (min-width: 768px) {
+
+	.form-title {
+		display: grid;
+	}
+
+	.form-title {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.form-title {
+		gap: 1.5rem;
+	}
+}
+
 .form-container {
 	margin-top: 1.25rem;
 }

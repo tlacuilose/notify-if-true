@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.form-title {
+    @apply md:grid md:grid-cols-3 md:gap-6;
+}
+
 .form-container {
     @apply mt-5 md:mt-0 md:col-span-2;
 }
