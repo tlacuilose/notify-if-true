@@ -16,6 +16,7 @@
 			result: async (res, form) => {
 				let json = await res.json();
 				transactionId = json.transaction_id;
+				console.log(transactionId);
 				if (transactionId !== '') {
 					showCompleted = true;
 				}
@@ -52,7 +53,7 @@
 				</div>
 			</div>
 			<div class="form-actions-container">
-				<button type="submit" class="form-submit-button form-button-send">Send request</button>
+				<button type="submit" class="greenform-submit-button form-button-send">Send request</button>
 			</div>
 		</div>
 	</form>
