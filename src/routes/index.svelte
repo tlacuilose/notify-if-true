@@ -11,13 +11,20 @@
 	};
 
 	const fieldsFormTitle: TitleData = {
-		title: 'API Endpoint Validation',
-		description: 'First, lets validate the endpoint that calls the API.'
+		title: 'API Fields Validation',
+		description: "Second, lets validate which fields we want to NOTIFY IF the comparison is TRUE. Explanation: Fields are squashed into their full route in a JSON. Comparisons should be established in the following way: <op>(<value>). For example, setting field: 'amount' to '<=(100)', will evaluate if amount is less or equal to 100. Available operators: '>', '<', '>=', '<=', '=', '!='."
+	};
+
+	const sendFormTitle: TitleData = {
+		title: 'Submit',
+		description: "Lastly, we have validated the api endpoint and decided which fields' comparisons we want to be true, we can request our notification if true."
 	};
 
 	let showFields: boolean;
 	let endpoint: string;
 	let fields: string;
+	let showEmail: boolean;
+	let validatedFields: string;
 </script>
 
 <div>
@@ -31,7 +38,15 @@
 	<FormDivider />
 	<div class="form-section">
 		<FormTitle data={fieldsFormTitle} />
-		<FormValidateFields {endpoint} {fields} />
+		<FormValidateFields {endpoint} {fields} bind:showEmail bind:validatedFields />
+	</div>
+{/if}
+
+{#if showEmail}
+	<FormDivider />
+	<div class="form-section">
+		<FormTitle data={sendFormTitle} />
+		<div>{validatedFields}</div>
 	</div>
 {/if}
 

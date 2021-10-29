@@ -4,9 +4,8 @@
 	export let fields: string;
 	export let endpoint: string;
 
-	// DO something on loiad.
-
 	export let showEmail: boolean = false;
+    export let validatedFields: string = '';
 </script>
 
 <div class="form-container">
@@ -17,9 +16,8 @@
 			result: async (res, form) => {
 				let json = await res.json();
 				endpoint = json.endpoint;
-				fields = json.fields;
-				console.log(json.fields);
-				if (fields !== '') {
+				validatedFields = json.validated_fields;
+				if (validatedFields !== '') {
 					showEmail = true;
 				}
 			}
@@ -27,14 +25,16 @@
 	>
 		<div class="form-box">
 			<div class="form-fields-container">
+                    <input type="text" name="endpoint" id="endpoint" class="hidden" value={endpoint} />
+                    <input type="text" name="fields" id="fields" class="hidden" value={fields} />
 				{#each fields.split(',').slice(0, -1) as field}
 					<div class="form-field">
 						<label for="endpoint" class="form-label">{field.split('<')[0]}</label>
 						<div class="form-input">
 							<input
 								type="text"
-								name="endpoint"
-								id="endpoint"
+								name={field}
+								id={field}
 								class="form-text-input"
 								placeholder={field.split(':')[field.split(':').length - 1]}
 							/>
