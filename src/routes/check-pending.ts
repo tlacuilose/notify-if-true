@@ -1,4 +1,5 @@
 import { collections, connectToDataBase } from '$lib/database.service';
+import { sendMail } from '$lib/mailing.service';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { ObjectId } from "mongodb";
 
@@ -8,7 +9,7 @@ interface Comparison {
 }
 
 class Transaction {
-	constructor(public endpoint: string, public fields: string, public id?: ObjectId) {}
+	constructor(public endpoint: string, public fields: string, public email: string, public id?: ObjectId) {}
 }
 
 
@@ -16,15 +17,18 @@ const AVAILABLE_OP = new Set(['>', '<', '>=', '<=', '=', '!=']);
 
 // GET /check-pending
 export const get: RequestHandler<null> = async (request) => {
+
     connectToDataBase()
     .then(async () => {
         try {
             const transactions = (await collections.transactions.find({}).toArray()) as Transaction[];
 
             for (const transaction of transactions) {
-                let resolved = compareToAPI(transaction);
+                let resolved = await compareToAPI(transaction);
                 if (resolved) {
-                    console.log('Resolved: ', transaction.endpoint, transaction.fields);
+                    await sendMail(transaction.email, transaction.endpoint, transaction.fields);
+                    const query = { _id: transaction._id };
+                    const result = await collections.transactions.deleteOne(query);
                 }
             }
 
@@ -40,7 +44,7 @@ export const get: RequestHandler<null> = async (request) => {
     })
 }
 
-async function compareToAPI(transaction: Transaction) {
+async function compareToAPI(transaction: Transaction): Promise<boolean> {
 	const response = await fetch(transaction.endpoint, {
 		method: 'get',
 		headers: {
@@ -49,15 +53,13 @@ async function compareToAPI(transaction: Transaction) {
 	});
 
 	if (!response.ok) {
-		return {
-			status: 400,
-			body: endpoint
-		};
+        return false;
 	}
 
 	const json = await response.json();
     const comparisons =  transaction.fields.split(',').slice(0,-1);
 	let allTrue = runComparisons(comparisons, json);
+    console.log('comparingapi' + comparisons + allTrue);
 
     return allTrue;
 }
@@ -66,6 +68,7 @@ function runComparisons(comparisons: string[], obj: any): boolean {
     for (const c of comparisons) {
         const elems = c.split('|');
         const res = evalComparison(elems[0], elems[1], obj);
+        console.log('comaring' + elems[0] + res);
         if (!res) {
             return false;
         }
@@ -80,22 +83,27 @@ function evalComparison(field: string, value: string, obj: any): boolean {
     console.log("Comparison: " + comparison.op + ' to ' + comparison.val);
     switch (comparison.op) {
         case '>':
+            console.log(realValue + '>' + comparison.val);
             return realValue > comparison.val;
             break;
         case '<':
+            console.log(realValue + '<' + comparison.val);
             return realValue < comparison.val;
             break;
         case '>=':
+            console.log(realValue + '>=' + comparison.val);
             return realValue >= comparison.val;
             break;
         case '<=':
+            console.log(realValue + '<=' + comparison.val);
             return realValue <= comparison.val;
             break;
         case '=':
-            console.log('thisone');
+            console.log(realValue + '==' + comparison.val);
             return realValue == comparison.val;
             break;
         case '!=':
+            console.log(realValue + '!=' + comparison.val);
             return realValue != comparison.val;
             break;
         default:

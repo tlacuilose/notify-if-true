@@ -28,13 +28,18 @@
     }
 
     export let transactions: Transaction[];
+
+    async function requestCheck() {
+        const res = await fetch('/check-pending');
+    }
+
 </script>
 <div class="py-2 grid grid-cols-2 align-middle">
     <div>
         <h1 class="text-2xl font-mono font-semibold resize-none">Pending</h1>
     </div>
     <div class="grid place-items-end align-botton">
-        <button class="form-button-send">Toggle checker</button>
+        <button class="form-button-send" on:click={requestCheck}>Toggle checker</button>
     </div>
 </div>
 <div class="flex flex-col">

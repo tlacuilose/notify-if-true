@@ -8,7 +8,7 @@ interface Comparison {
 }
 
 class Transaction {
-	constructor(public endpoint: string, public fields: string, public id?: ObjectId) {}
+	constructor(public endpoint: string, public fields: string, public email: string, public id?: ObjectId) {}
 }
 
 
@@ -18,10 +18,11 @@ const AVAILABLE_OP = new Set(['>', '<', '>=', '<=', '=', '!=']);
 export const post: RequestHandler<null, FormData> = async (request) => {
 	const endpoint = request.body.get('endpoint');
     const validatedFields = request.body.get('validated_fields');
+	const email = request.body.get('email');
 
     await connectToDataBase()
 	try {
-		const newTransaction = new Transaction(endpoint, validatedFields);
+		const newTransaction = new Transaction(endpoint, validatedFields, email);
 		const result = await collections.transactions.insertOne(newTransaction);
 
 		if (result) {

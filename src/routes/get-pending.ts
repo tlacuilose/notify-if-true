@@ -3,7 +3,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import type { ObjectId } from "mongodb";
 
 class Transaction {
-	constructor(public endpoint: string, public fields: string, public id?: ObjectId) {}
+	constructor(public endpoint: string, public fields: string, public email: string, public id?: ObjectId) {}
 }
 
 // GET /get-pending
