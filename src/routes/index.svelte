@@ -49,28 +49,28 @@
 		<FormTitle data={endpointFormTitle} />
 		<FormValidateEndpoint bind:showFields bind:endpoint bind:fields />
 	</div>
+
+	{#if showFields}
+		<FormDivider />
+		<div class="form-section">
+			<FormTitle data={fieldsFormTitle} />
+			<FormValidateFields {endpoint} {fields} bind:showEmail bind:validatedFields />
+		</div>
+	{/if}
+
+	{#if showEmail}
+		<FormDivider />
+		<div class="form-section">
+			<FormTitle data={sendFormTitle} />
+			<FormSendRequest {endpoint} {validatedFields} bind:showCompleted bind:transactionId />
+		</div>
+	{/if}
+
+	{#if showCompleted}
+		<FormDivider />
+		<div class="form-section">
+			<FormTitle data={completedFormTitle} />
+			<div>TRANSACTION ID: {transactionId}</div>
+		</div>
+	{/if}
 </div>
-
-{#if showFields}
-	<FormDivider />
-	<div class="form-section">
-		<FormTitle data={fieldsFormTitle} />
-		<FormValidateFields {endpoint} {fields} bind:showEmail bind:validatedFields />
-	</div>
-{/if}
-
-{#if showEmail}
-	<FormDivider />
-	<div class="form-section">
-		<FormTitle data={sendFormTitle} />
-		<FormSendRequest {endpoint} {validatedFields} bind:showCompleted bind:transactionId />
-	</div>
-{/if}
-
-{#if showCompleted}
-	<FormDivider />
-	<div class="form-section">
-		<FormTitle data={completedFormTitle} />
-		<div>TRANSACTION ID: {transactionId}</div>
-	</div>
-{/if}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Navbar from '$lib/Navbar.svelte';
+	import Footer from '$lib/Footer.svelte';
 	import '../styles/tailwind-output.css';
 </script>
 
@@ -9,5 +10,6 @@
 		<div class="max-w-4xl mx-auto bg-gray-50 shadow overflow-hidden sm:rounded-lg px-4 py-5">
 			<slot />
 		</div>
+		<Footer />
 	</div>
 </main>
